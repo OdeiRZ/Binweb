@@ -2,36 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" media="screen" href="recursos/css/estilos.css"/>
 		<title>BinWeb</title>
-		<style>
-			body
-			{
-				padding:20px;
-				margin:20px auto;
-				width:300px;
-				background-color:#6DADAD;
-			}
-			table
-			{
-				border:2px solid #15595E;
-				padding:10px;
-				background-color:#F7C617;
-				border-radius:10px;
-			}
-			table td
-			{
-				border:1px inset black;
-				border-radius:20px;
-				background-color:white;
-				width:25px;
-				text-align:center;
-				font-weight:bold;
-			}
-			table td.oculto
-			{
-				visibility:hidden;
-			}
-		</style> 
 	<head>
 	<body>
 		<div>

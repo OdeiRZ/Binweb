@@ -1,0 +1,27 @@
+body
+{
+	padding:20px;
+	margin:20px auto;
+	width:300px;
+	background-image:url('/recursos/imagenes/textura.jpg');
+}
+table
+{
+	border:3px solid #15595E;
+	border-radius:10px;
+	padding:10px;
+	background-color:#F7C617;
+}
+table td
+{
+	border:1px inset black;
+	border-radius:20px;
+	background-color:white;
+	width:25px;
+	text-align:center;
+	font-weight:bold;
+}
+table td.oculto
+{
+	visibility:hidden;
+}
