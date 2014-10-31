@@ -15,10 +15,15 @@
 		$_SESSION['carton']=array_fill(1,90,0);
 	if(isset($_POST['obtener']))
 	{
-		$aleatorio=mt_rand(1,90);
-		$auxAleatorio=strval($aleatorio);
-		$indice=($aleatorio>9) ? obtenerIndice($auxAleatorio[1]+1,$auxAleatorio[0]) : obtenerIndice($auxAleatorio[0],"0");
-		$_SESSION['carton'][$indice]=1;
+		if(count(array_keys($_SESSION['carton'],"0"))>0)
+		{
+			do{
+				$aleatorio=mt_rand(1,90);
+				$auxAleatorio=strval($aleatorio);
+				$indice=($aleatorio>9) ? obtenerIndice($auxAleatorio[1]+1,$auxAleatorio[0]) : obtenerIndice($auxAleatorio[0],"0");
+			}while($_SESSION['carton'][$indice]==1);
+			$_SESSION['carton'][$indice]=1;
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -26,7 +31,7 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="recursos/css/estilos.css"/>
-		<link rel="shortcut icon" type="image/png" href="recursos/imagenes/favicon.png">	
+		<link rel="shortcut icon" type="image/png" href="recursos/imagenes/favicon2.png">	
 		<title>BinWeb</title>
 	</head>
 	<body>

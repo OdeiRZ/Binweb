@@ -38,6 +38,7 @@
 	function isDebug($debug)
 	{
 		if($debug)
+		{
 			for($i=1;$i<=11;$i++)
 			{
 				for($j=0;$j<9;$j++)
@@ -47,5 +48,8 @@
 						echo $_SESSION['carton'][obtenerIndice($i,$j)]." ";
 				echo "<br/>";
 			}
+			echo "Contador de Números: ".count(array_keys($_SESSION['carton'],1))."</br>";
+			echo "Contador de Huecos: ".count(array_keys($_SESSION['carton'],0));
+		}
 	}
 ?>
