@@ -1,6 +1,6 @@
 <?php
 	require("recursos/inc/funciones.php");
-	$debug=false;
+	$debug=true;
 	
 	session_name('loteria');
 	session_start();
@@ -42,7 +42,7 @@
 			echo dibujaTabla($aleatorio,$_SESSION['carton']);
 ?>
 			<form action="index.php" method="post">
-				<input type="submit" name="obtener" value="Obtener Número">
+				<input type="submit" name="obtener" value="Obtener Número" <?= (count(array_keys($_SESSION['carton'],0))==0) ? "disabled" : ""; ?>>
 				<input type="submit" name="nuevo"	value="Nuevo Juego">
 			</form>
 		</div>

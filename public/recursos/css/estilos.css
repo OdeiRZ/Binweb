@@ -88,3 +88,8 @@ form input[type=submit]:active
 	color:brown;
 	cursor:progress;
 }
+form input[type=submit]:disabled
+{
+	background-image:url('/recursos/imagenes/boton4.png');
+	color:#977254;
+}
