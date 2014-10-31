@@ -1,6 +1,6 @@
 <?php
 	require("recursos/inc/funciones.php");
-	$debug=true;
+	$debug=false;
 	
 	session_name('loteria');
 	session_start();
@@ -38,7 +38,7 @@
 		<div>
 <?php
 			$auxAleatorio=($aleatorio!=0)? $aleatorio :"";
-			echo "\t\t\t<p><span>".$auxAleatorio."</span></p>\n";
+			echo "\t\t\t<p><span>".$auxAleatorio."</span><span>Cartón de Bingo</span></p>\n";
 			echo dibujaTabla($aleatorio,$_SESSION['carton']);
 ?>
 			<form action="index.php" method="post">
