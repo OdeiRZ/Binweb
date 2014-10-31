@@ -1,5 +1,5 @@
 <?php
-	function dibujaTabla()
+	function dibujaTabla($actual,$tablero)
 	{
 		$tabla="";
 		for($i=1;$i<=11;$i++)
@@ -7,10 +7,15 @@
 			$tabla.="\t\t\t<table>\n\t\t\t\t<tr>\n";
 			for($j=0;$j<9;$j++)
 			{
+				$estilo="";
+				$indice=obtenerIndice($i,$j);
 				if(($i==10 && $j==0)||($i==11 && $j!=8))
-					$tabla.="\t\t\t\t\t<td class='oculto'></td>\n";
-				else						
-					$tabla.="\t\t\t\t\t<td>".obtenerIndice($i,$j)."</td>\n";
+					$estilo="oculto";
+				else if($indice!=$actual && $_SESSION['carton'][$indice]==1)
+					$estilo="boleto";
+				else if($indice==$actual)
+					$estilo="actual";
+				$tabla.="\t\t\t\t\t<td class='".$estilo."'>".$indice."</td>\n";
 			}
 			$tabla.="\t\t\t\t</tr>\n\t\t\t</table>\n";
 		}

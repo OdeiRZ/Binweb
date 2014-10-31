@@ -31,7 +31,7 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="recursos/css/estilos.css"/>
-		<link rel="shortcut icon" type="image/png" href="recursos/imagenes/favicon2.png">	
+		<link rel="shortcut icon" type="image/png" href="recursos/imagenes/favicon.png">	
 		<title>BinWeb</title>
 	</head>
 	<body>
@@ -39,7 +39,7 @@
 <?php
 			$auxAleatorio=($aleatorio!=0)? $aleatorio :"";
 			echo "\t\t\t<p><span>".$auxAleatorio."</span></p>\n";
-			echo dibujaTabla();
+			echo dibujaTabla($aleatorio,$_SESSION['carton']);
 ?>
 			<form action="index.php" method="post">
 				<input type="submit" name="obtener" value="Obtener Número">
