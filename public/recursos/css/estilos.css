@@ -1,14 +1,14 @@
 body
 {
-	margin:10px auto;
-	width:300px;
 	background-image:url('/recursos/imagenes/textura.jpg');
 }
 div
 {
+	margin:10px auto;
+	width:330px;
 	border:3px solid #2D6367;
 	border-radius:10px;
-	padding:10px 10px 0px 10px;
+	padding:12px;
 	background-color:#F7C617;
 }
 div > p
@@ -36,11 +36,10 @@ div > p > span:first-child
 }
 div > p > span + span
 {
-	position:fixed;
-	margin:-45px 0px 0px 55px;
+	display:block;
+	margin:-45px 0px 0px 30px;
 	padding:5px;
-	width:170px;
-	color:#BD9B3E;
+	color:#AD9B3E;
 	font-size:20px;
 	font-weight:bold;
 	text-align:center;
@@ -49,10 +48,14 @@ table td
 {
 	border-radius:20px;
 	background-color:white;
-	width:25px;
-	height:25px;
+	width:35px;
+	height:30px;
 	text-align:center;
 	font-weight:bold;
+}
+table td + td
+{
+	margin:10px;
 }
 table td.oculto
 {
@@ -72,12 +75,24 @@ table td.actual
 }
 form
 {
-	padding:20px;
+	padding:5px;
 	text-align:center;
+}
+form input[type=number]
+{
+	border-radius:20px;
+	width:30px;
+	height:30px;
+	font-family:serif;
+	border:none;
+	color:brown;
+	font-weight:bold;
+	font-size:15px;
 }
 form input[type=submit]
 {
-	height:40px;
+	margin-top:10px;
+	height:30px;
 	width:115px;
 	font-family:serif;
 	background-color:transparent;

@@ -1,10 +1,10 @@
 <?php
 	function dibujaTabla($actual,$tablero)
 	{
-		$tabla="";
+		$tabla="\t\t\t\t<table>\n";
 		for($i=1;$i<=11;$i++)
 		{
-			$tabla.="\t\t\t<table>\n\t\t\t\t<tr>\n";
+			$tabla.="\t\t\t\t\t<tr>\n";
 			for($j=0;$j<9;$j++)
 			{
 				$estilo="";
@@ -15,11 +15,28 @@
 					$estilo="boleto";
 				else if($indice==$actual)
 					$estilo="actual";
-				$tabla.="\t\t\t\t\t<td class='".$estilo."'>".$indice."</td>\n";
+				$tabla.="\t\t\t\t\t\t<td class='".$estilo."'>".$indice."</td>\n";
 			}
-			$tabla.="\t\t\t\t</tr>\n\t\t\t</table>\n";
+			$tabla.="\t\t\t\t\t</tr>\n";
 		}
-		return $tabla;
+		return $tabla."\t\t\t\t</table>\n";
+	}
+	function dibujaBoleto()
+	{
+		$boleto="<table>\n";
+		for($i=1;$i<=3;$i++)
+		{
+			$boleto.="\t\t\t\t\t<tr>\n";
+			for($j=0;$j<9;$j++)
+			{
+				$min=($j==0)? 1 : $j*10;
+				$max=($j==0)? 9 : $min+9;
+				$max=($j==8)? 90: $max;
+				$boleto.="\t\t\t\t\t\t<td><input type='number' name='casilla".obtenerIndice($i,$j)."' min='".$min."' max='".$max."'></td>\n";
+			}
+			$boleto.="\t\t\t\t\t</tr>\n";
+		}
+		return $boleto."\t\t\t\t</table>\n";
 	}
 	function obtenerIndice($i,$j)
 	{

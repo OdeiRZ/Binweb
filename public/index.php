@@ -35,17 +35,20 @@
 		<title>BinWeb</title>
 	</head>
 	<body>
-		<div>
+		<form action="index.php" method="post">
+			<div>
 <?php
-			$auxAleatorio=($aleatorio!=0)? $aleatorio :"";
-			echo "\t\t\t<p><span>".$auxAleatorio."</span><span>Cartón de Bingo</span></p>\n";
-			echo dibujaTabla($aleatorio,$_SESSION['carton']);
+				$auxAleatorio=($aleatorio!=0)? $aleatorio :"";
+				echo "\t\t\t\t<p><span>".$auxAleatorio."</span><span>Tómbola</span></p>\n";
+				echo dibujaTabla($aleatorio,$_SESSION['carton']);
 ?>
-			<form action="index.php" method="post">
 				<input type="submit" name="obtener" value="Obtener Número" <?= (count(array_keys($_SESSION['carton'],0))==0) ? "disabled" : ""; ?>>
 				<input type="submit" name="nuevo"	value="Nuevo Juego">
-			</form>
-		</div>
-		<?= isDebug($debug); ?>
+			</div>		
+			<div>
+				<?= dibujaBoleto(); ?>
+			</div>
+		</form>
+<?= isDebug($debug); ?>
 	</body>
 </html>
