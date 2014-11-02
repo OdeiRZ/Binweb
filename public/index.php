@@ -1,11 +1,11 @@
 <?php
 	require("recursos/inc/funciones.php");
 	$debug=false;
+	$aleatorio=0;
+	$titulo="Bingo Online";
 	
 	session_name('loteria');
 	session_start();
-	$aleatorio=0;
-	$titulo="Bingo Online";
 	
 	if(isset($_POST['nuevo']))
 	{
@@ -26,17 +26,25 @@
 	if(isset($_POST['comprobar']))
 	{
 		$carton=array_fill(1,27,0);
+		$fila1=array();
+		$fila2=array();
+		$fila3=array();
 		for($i=1;$i<4;$i++)
 			for($j=0;$j<9;$j++)
 			{
 				$indice=($i+$j*3);
 				if($_POST["casilla".$indice]!="")
+				{	//alternativa => funcion de php in_array();
 					$carton[$indice]=$_POST["casilla".$indice];
+					($indice==1||$indice==4||$indice==7||$indice==10||$indice==13||$indice==16||$indice==19||$indice==22||$indice==25) ? array_push($fila1,$carton[$indice]) : "";
+					($indice==2||$indice==5||$indice==8||$indice==11||$indice==14||$indice==17||$indice==20||$indice==23||$indice==26) ? array_push($fila2,$carton[$indice]) : "";
+					($indice==5||$indice==6||$indice==9||$indice==12||$indice==15||$indice==18||$indice==21||$indice==24||$indice==27) ? array_push($fila3,$carton[$indice]) : "";
+				}
 			}
 		if(count(array_keys($carton,0))!=12)
 			$titulo="<font color='red'>Cartón no rellenado</font>";
 		else
-			$titulo=comprobarCarton($carton,$_SESSION['tombola']);
+			$titulo=comprobarCarton($carton,$fila1,$fila2,$fila3,$_SESSION['tombola']);
 	}
 ?>
 <!DOCTYPE html>
