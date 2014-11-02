@@ -22,7 +22,7 @@
     }
     function dibujaCarton()                                          //Función usada para generar el código HTML que
     {                                                                //utilizaremos para insertar un cartón en la página
-        $boleto = "\t\t\t\t<table>\n";                                 //asignando valores mínimos y máximos para cada uno
+        $boleto = "\t\t\t\t<table>\n";                               //asignando valores mínimos y máximos para cada uno
         for ($i = 1; $i < 4; $i++) {
             $boleto.= "\t\t\t\t\t<tr>\n";
             for ($j = 0; $j < 9; $j++) {

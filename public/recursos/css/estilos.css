@@ -1,6 +1,6 @@
 body
 {
-	background-image:url('/recursos/imagenes/textura.jpg');
+	background-image:url('../imagenes/textura.jpg');
 }
 div
 {
@@ -23,7 +23,7 @@ div > p > span:first-child
 {
 	margin-top:-17px;
 	padding:15px 10px 5px 10px;
-	background-image:url('/recursos/imagenes/bolaRoja.png');
+	background-image:url('../imagenes/bolaRoja.png');
 	background-size:100% 100%;
 	border-radius:40px;
 	color:brown;
@@ -63,12 +63,12 @@ table td.oculto
 }
 table td.boleto
 {
-	background-image:url('/recursos/imagenes/bolaAmarilla.png');
+	background-image:url('../imagenes/bolaAmarilla.png');
 	background-size:100% 100%;
 }
 table td.actual
 {
-	background-image:url('/recursos/imagenes/bolaRoja2.png');
+	background-image:url('../imagenes/bolaRoja2.png');
 	background-size:100% 100%;
 	color:white;
 }
@@ -95,7 +95,7 @@ form input[type=submit]
 	width:130px;
 	font-family:serif;
 	background-color:transparent;
-	background-image:url('/recursos/imagenes/boton.png');
+	background-image:url('../imagenes/boton.png');
 	background-size:100% 100%;
 	border:none;
 	color:#68351F;
@@ -104,17 +104,17 @@ form input[type=submit]
 }
 form input[type=submit]:hover
 {
-	background-image:url('/recursos/imagenes/boton3.png');
+	background-image:url('../imagenes/boton3.png');
 	color:#844204;
 }
 form input[type=submit]:active
 {
-	background-image:url('/recursos/imagenes/boton2.png');
+	background-image:url('../imagenes/boton2.png');
 	color:brown;
 	cursor:progress;
 }
 form input[type=submit]:disabled
 {
-	background-image:url('/recursos/imagenes/boton4.png');
+	background-image:url('../imagenes/boton4.png');
 	color:#977254;
 }

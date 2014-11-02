@@ -70,7 +70,7 @@
                 $activo = (count(array_keys($_SESSION['tombola'], 0)) == 0) ? "disabled" : "";
 ?>
                 <input type="submit" name="obtener" value="Obtener Número" <?= $activo ?>>
-                <input type="submit" name="nuevo"    value="Nuevo Juego">
+                <input type="submit" name="nuevo"   value="Nuevo Juego">
             </div>
             <div>
 <?= dibujaCarton(); ?>
