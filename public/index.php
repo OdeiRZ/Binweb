@@ -72,5 +72,6 @@
 			</div>
 		</form>
 <?= isDebug($debug); ?>
+<?= reproducirAudio($titulo); ?>
 	</body>
 </html>

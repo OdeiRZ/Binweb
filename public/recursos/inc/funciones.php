@@ -59,15 +59,6 @@
 	}
 	function comprobarCarton($carton,$fila1,$fila2,$fila3,$tombola)
 	{
-		$vCartonI=0;
-		$vTombolaI=0;
-		for($i=1;$i<count($carton);$i++)
-			if($carton[$i]!=0)
-				$vCarton[$vCartonI++]=$carton[$i];
-		for($i=1;$i<count($tombola);$i++)
-			if($tombola[$i]!=0)
-				$vTombola[$vTombolaI++]=$tombola[$i];
-		
 		if(count(array_diff($carton, $tombola)) === 0)
 			$resultado="<font color='green'>!!!! BINGO !!!!</font>";
 		else if((count(array_diff($fila1, $tombola)) === 0 && count($fila1)>=5) || (count(array_diff($fila2, $tombola)) === 0 && count($fila2)>=5) || (count(array_diff($carton, $fila3)) === 0 && count($fila3)>=5))
@@ -75,7 +66,25 @@
 		else
 			$resultado="<font color='red'>Sin Premio</font>";
 		return $resultado;
-		//return (count(array_diff($carton, $tombola)) === 0) ? "<font color='green'>!!! BINGO !!!</font>" : "<font color='red'>Sin Premio</font>";
+	}
+	function reproducirAudio($titulo)
+	{
+		$sw=true;
+		if(strpos($titulo,"BINGO") || strpos($titulo,"LÍNEA"))
+			$audio="win";
+		else if(strpos($titulo,"Sin Premio"))
+			$audio="fail";
+		else
+			$sw=false;
+		
+		if($sw)
+		{
+			$reproductor="\t\t<audio autoplay>\n";
+			$reproductor.="\t\t\t<source src='/recursos/audio/".$audio.".mp3' type='audio/mpeg'>\n";
+			$reproductor.="\t\t\t<source src='/recursos/audio/".$audio.".ogg' type='audio/ogg'>\n";
+			$reproductor.="\t\t</audio>\n";
+			echo $reproductor;
+		}
 	}
 	function isDebug($debug)			//eliminar funcion en version final
 	{
