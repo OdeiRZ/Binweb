@@ -1,6 +1,6 @@
-<?php                                                                 //Algunas líneas más largas de 80 caracteres no se han reducido
-    require("recursos/inc/funciones.php");                            //por temas de identación (vía html), en cualquier caso no se
-                                                                      //superan los 120 caracteres máximos recomendados
+<?php                                                                  //Algunas líneas más largas de 80 caracteres no se han reducido
+    require("recursos/inc/funciones.php");                             //por temas de identación (vía html), en cualquier caso no se
+                                                                       //superan los 120 caracteres máximos recomendados
     session_name('loteria');
     session_start();
     $titulo = "Bingo Online";
@@ -11,44 +11,33 @@
         session_start();
     }
     if (!isset($_SESSION['tombola'])) {
-        $_SESSION['tombola'] = array_fill(1, 90, 0);                  //Inicializamos variable de sesión tombola
-    }                                                                 //rellenando un array de 90 elementos con ceros
+        $_SESSION['tombola'] = array();	                               //Inicializamos variable de sesión tombola
+    }                                                                  //rellenando un array de 90 elementos con ceros
     if (isset($_POST['obtener'])) {
         do {
             $n = mt_rand(1, 90);
-            $nAux = strval($n);                                       //Convertimos a cadena el número generado aleatoriamente
-            if ($n > 9) {
-                $pos = obtenerIndice($nAux[1] + 1, $nAux[0]);
-            } else {
-                $pos = obtenerIndice($nAux[0], 0);
-            }
-        } while ($_SESSION['tombola'][$pos] != 0);                    //Mientras que el número exista en el array repetimos el bucle
-        $_SESSION['tombola'][$pos] = $n;
+        } while (in_array($n, $_SESSION['tombola']));                  //Mientras que el número exista en el array repetimos el bucle
+		array_push($_SESSION['tombola'], $n);
     }
     if (isset($_POST['comprobar'])) {
         $f1 = array();
-        $f2 = array();                                                //Creamos arrays que contendran los números mandados por fila
+        $f2 = array();                                                 //Creamos arrays que contendran los números enviados por fila
         $f3 = array();
-        $carton = array();                                            //Por cuestiones de manejabilidad se ha decidido separar las tres
-        for($i = 1; $i < 4; $i++) {                                   //filas y el cartón, aunque no es necesario éste último se ha optado
-            for($j = 0; $j < 9 ; $j++) {                              //por seguir usándolo para seguir las especificaciones de versiones anteriores
-                $pos = ($i + $j * 3);                                 //una alternativa plausible consiste en validar las tres filas en su conjunto
-                if ($_POST["casilla".$pos] != "") {
-					array_push($carton, $_POST["casilla".$pos]);      //Rellenamos array con todos los datos mandados que no estén vacios
-                    if (in_array($pos, array(1, 4, 7, 10, 13, 16, 19, 22, 25))) {
-                        array_push($f1, $_POST["casilla".$pos]);      //Insertamos el número mandado en una fila concreta
-                    }  else if (in_array($pos, array(2, 5, 8, 11, 14, 17, 20, 23, 26))) {
-                        array_push($f2, $_POST["casilla".$pos]);      //comprobando si el índice está contenido entre los de dicha fila
-                    } else {
-                        array_push($f3, $_POST["casilla".$pos]);
-                    }
+        for($i = 1; $i < 28; $i++) {
+            if ($_POST["casilla".$i] != "") {
+                if (in_array($i, array(1, 4, 7, 10, 13, 16, 19, 22, 25))) {  //Calculamos en que fila insertaremos el número a partir del índice
+                    array_push($f1, $_POST["casilla".$i]);                   //Insertamos el número mandado en una fila concreta
+                }  else if (in_array($i, array(2, 5, 8, 11, 14, 17, 20, 23, 26))) {
+                    array_push($f2, $_POST["casilla".$i]); 
+                } else {
+                    array_push($f3, $_POST["casilla".$i]);
                 }
             }
         }
-        if(count($carton) != 15) {                                    //Si el número de elementos del cartón es diferente de 15
-            $titulo = "<font color='red'>Cartón no rellenado</font>"; //mostramos el mensaje de 'error' correspondiente
-        } else {                                                      //en caso contrario validamos el mismo
-            $titulo = comprobarCarton($carton, $f1, $f2, $f3, $_SESSION['tombola']);
+        if(count($f1) + count($f2) + count($f3) != 15) {               //Si la suma de las 3 filas es diferente a 15
+            $titulo = "<font color='red'>Cartón mal rellenado</font>"; //mostramos el mensaje de 'error' correspondiente
+        } else {                                                       //en caso contrario validamos el cartón
+            $titulo = comprobarCarton($f1, $f2, $f3, $_SESSION['tombola']);
         }
     }
 ?>
@@ -64,10 +53,10 @@
         <form action="index.php" method="post">
             <div>
 <?php
-                $nAux = ($n != 0) ? $n : "";                          //Sólo mostramos el número generado cuando sea diferente de cero
+                $nAux = ($n != 0) ? $n : "";                           //Sólo mostramos el número generado cuando sea diferente de cero
                 echo "\t\t\t\t<p><span>".$nAux."</span><span>".$titulo."</span></p>\n";
                 echo dibujaTabla($n, $_SESSION['tombola']);
-                $activo = (count(array_keys($_SESSION['tombola'], 0)) == 0) ? "disabled" : "";
+                $activo = (count($_SESSION['tombola']) == 90) ? "disabled" : "";
 ?>
                 <input type="submit" name="obtener" value="Obtener Número" <?= $activo ?>>
                 <input type="submit" name="nuevo"   value="Nuevo Juego">
