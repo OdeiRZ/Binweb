@@ -7,7 +7,7 @@ un equipo local.
 
 Desde ella se podrán generar números aleatorios, comprobar sus correspondencias, crear nuevas partidas, etc.,
 añadiendo además efectos interactivos como reproducción de sonidos, estilos varios, etc., 
-para una interación con el usuario más satisfactoria.
+para una interacción con el usuario más satisfactoria.
 
 Para facilitar el desarrollo se proporciona un entorno [Vagrant] con todas las dependencias ya instaladas.
 
