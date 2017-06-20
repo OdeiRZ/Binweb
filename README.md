@@ -13,6 +13,7 @@ Para facilitar el desarrollo se proporciona un entorno [Vagrant] con todas las d
 
 ## Requisitos
 - PHP 5.1 o superior
+- Navegador Web [Chrome], [Firefox], [Opera], [Microsoft Edge], etc..
 - Servidor web Apache2 (podría funcionar con nginx, pero no se ha probado)
 
 ## Entorno de desarrollo
@@ -24,4 +25,8 @@ Esta aplicación se ofrece bajo licencia [GPL versión 3].
 
 [Vagrant]: https://www.vagrantup.com/
 [VirtualBox]: https://www.virtualbox.org
+[Chrome]: https://www.google.es/chrome/browser/desktop/index.html
+[Firefox]: https://www.mozilla.org/es-ES/firefox/new/
+[Opera]: http://www.opera.com/es
+[Microsoft Edge]: https://www.microsoft.com/es-es/windows/microsoft-edge
 [GPL versión 3]: https://www.gnu.org/licenses/gpl-3.0.en.html
