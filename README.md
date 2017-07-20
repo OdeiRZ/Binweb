@@ -18,7 +18,7 @@ Para facilitar el desarrollo se proporciona un entorno [Vagrant] con todas las d
 
 ## Entorno de desarrollo
 Para poder ejecutar la aplicación en un entorno de desarrollo basta con tener [Vagrant] instalado junto con [VirtualBox]
-y ejecutar el comando `vagrant up`. La aplicación será accesible desde la dirección http://192.168.33.10/
+y ejecutar el comando `vagrant up`. La aplicación será accesible desde la dirección http://192.168.33.10/.
 
 ## Licencia
 Esta aplicación se ofrece bajo licencia [GPL versión 3].
