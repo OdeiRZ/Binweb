@@ -1,4 +1,4 @@
-BinWeb 0.91
+BinWeb 0.92
 ================================
 
 Aplicación web que simula el funcionamiento de un bingo, generando múmeros y comprobando correspondencias

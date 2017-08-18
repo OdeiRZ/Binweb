@@ -1,6 +1,6 @@
 <?php
     require("recursos/inc/funciones.php");
-    //superan los 120 caracteres máximos recomendados
+
     session_name('loteria');
     session_start();
     $titulo = "Bingo Online";
