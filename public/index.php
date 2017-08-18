@@ -1,113 +1,71 @@
 <?php
-/**
- * Método usado para generar el código HTML que dibuja la tabla donde mostramos las tiradas realizadas.
- *
- * @param integer $actual número generado aleatoriamente con la bola sacada al azar
- * @param array $tombola vector con los números sacados con anterioridad
- * @return string
- */
-function dibujaTabla($actual, $tombola)
-{
-    $tabla = "\t\t\t\t<table>\n";
-    for ($i = 1; $i < 12; $i++) {
-        $tabla.= "\t\t\t\t\t<tr>\n";
-        for ($j = 0; $j < 9; $j++) {
-            if ($j > 0) {
-                $iAux = $i-1;
-                $jAux = $j;
-                if ($j == 8 && $i == 11) {
-                    $iAux = 0;
-                    $jAux = $j+1;
+    require("recursos/inc/funciones.php");
+    //superan los 120 caracteres máximos recomendados
+    session_name('loteria');
+    session_start();
+    $titulo = "Bingo Online";
+    $n = 0;
+
+    if (isset($_POST['nuevo'])) {
+        session_destroy();
+        session_start();
+    }
+    if (!isset($_SESSION['tombola'])) {
+        $_SESSION['tombola'] = array();	                               //Inicializamos variable de sesión tombola
+    }                                                                  //rellenando un array de 90 elementos con ceros
+    if (isset($_POST['obtener'])) {
+        do {
+            $n = mt_rand(1, 90);
+        } while (in_array($n, $_SESSION['tombola']));                  //Mientras que el número exista en el array repetimos el bucle
+        array_push($_SESSION['tombola'], $n);
+    }
+    if (isset($_POST['comprobar'])) {
+        $f1 = array();
+        $f2 = array();                                                 //Creamos arrays que contendran los números enviados por fila
+        $f3 = array();
+        for($i = 1; $i < 28; $i++) {
+            if ($_POST["casilla".$i] != "") {
+                if (in_array($i, array(1, 4, 7, 10, 13, 16, 19, 22, 25))) {  //Calculamos en que fila insertaremos el número a partir del índice
+                    array_push($f1, $_POST["casilla".$i]);                   //Insertamos el número mandado en una fila concreta
+                }  else if (in_array($i, array(2, 5, 8, 11, 14, 17, 20, 23, 26))) {
+                    array_push($f2, $_POST["casilla".$i]);
+                } else {
+                    array_push($f3, $_POST["casilla".$i]);
                 }
-            } else {
-                $iAux = $i;
-                $jAux = "";
             }
-            $pos = ($jAux).($iAux);
-            $estilo = "";
-            if (($i == 10 && $j == 0) || ($i == 11 && $j != 8)) {
-                $estilo = "oculto";
-            } else if ($pos != $actual && in_array($pos, $tombola)) {
-                $estilo = "boleto";
-            } else if ($pos == $actual) {
-                $estilo = "actual";
-            }
-            $tabla.= "\t\t\t\t\t\t<td class='".$estilo."'>".$pos."</td>\n";
         }
-        $tabla.= "\t\t\t\t\t</tr>\n";
-    }
-    return $tabla."\t\t\t\t</table>\n";
-}
-
-/**
- * Método usado para generar el código HTML que dibuja el cartón donde seleccionaremos los números elegidos.
- *
- * @return string
- */
-function dibujaCarton()
-{
-    $boleto = "\t\t\t\t<table>\n";
-    for ($i = 1; $i < 4; $i++) {
-        $boleto.= "\t\t\t\t\t<tr>\n";
-        for ($j = 0; $j < 9; $j++) {
-            $minAux = ($j == 0) ? 1 : $j*10;
-            $min="min='".$minAux."'";
-            $maxAux = ($j == 0) ? 9 : $minAux+9;
-            $max = "max='".(($j == 8) ? 90 : $maxAux)."'";
-            $name = "name='casilla".($i+$j*3)."'";
-            $boleto.= "\t\t\t\t\t\t<td><input type='number' ".$name." ".$min." ".$max."></td>\n";
+        if(count($f1) + count($f2) + count($f3) != 15) {               //Si la suma de las 3 filas es diferente a 15
+            $titulo = "<font color='red'>Cartón mal rellenado</font>"; //mostramos el mensaje de 'error' correspondiente
+        } else {                                                       //en caso contrario validamos el cartón
+            $titulo = comprobarCarton($f1, $f2, $f3, $_SESSION['tombola']);
         }
-        $boleto.= "\t\t\t\t\t</tr>\n";
     }
-    return $boleto."\t\t\t\t</table>\n";
-}
-
-/**
- * Método usado para comprobar si un cartón tiene premio devolviendo una cadena que insertaremos en la página HTML.
- *
- * @param array $f1 vector con los números seleccionados en la fila 1
- * @param array $f2 vector con los números seleccionados en la fila 2
- * @param array $f3 vector con los números seleccionados en la fila 3
- * @param array $tombola vector con las números sacados de manera aleatoria
- * @return string
- */
-function comprobarCarton($f1, $f2, $f3, $tombola)
-{
-    if ((count(array_diff($f1, $tombola)) === 0 && count($f1) == 5) &&
-        (count(array_diff($f2, $tombola)) === 0 && count($f2) == 5) &&
-        (count(array_diff($f3, $tombola)) === 0 && count($f3) == 5)) {
-        $resultado = "<font color='green'>!!!! BINGO !!!!</font>";       //Si las 3 filas en su conjunto están contenidas en de array es BINGO
-    } else if ((count(array_diff($f1, $tombola)) === 0 && count($f1) == 5) ||
-        (count(array_diff($f2, $tombola)) === 0 && count($f2) == 5) ||
-        (count(array_diff($f3, $tombola)) === 0 && count($f3) == 5)) {
-        $resultado = "<font color='green'>!! LÍNEA !!</font>";           //Si sólo 1 de las filas está contenida en el array es LÍNEA
-    } else {
-        $resultado = "<font color='red'>Sin Premio</font>";              //En caso contrario no tiene premio el cartón enviado
-    }
-    return $resultado;
-}
-
-/**
- * Método usado para reproducir un sonido al validar el cartón de Bingo si el jugador acierta.
- *
- * @param array $f1 vector con los números seleccionados en la fila 1
- * @return string
- */
-function reproducirAudio($titulo)
-{
-    $sw = true;
-    if (strpos($titulo, "BINGO") || strpos($titulo, "LÍNEA")) {
-        $audio = "win";
-    } elseif (strpos($titulo, "Sin Premio")) {
-        $audio = "fail";
-    } else {
-        $sw = false;
-    }
-    if ($sw) {
-        $reproductor = "\t\t<audio autoplay>\n";
-        $reproductor.= "\t\t\t<source src='/recursos/audio/".$audio.".mp3' type='audio/mpeg'>\n";
-        $reproductor.= "\t\t\t<source src='/recursos/audio/".$audio.".ogg' type='audio/ogg'>\n";
-        $reproductor.= "\t\t</audio>\n";
-        return $reproductor;
-    }
-}
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="recursos/css/estilos.css"/>
+        <link rel="shortcut icon" type="image/png" href="recursos/imagenes/ico.png">
+        <title>BinWeb</title>
+    </head>
+    <body>
+        <form action="index.php" method="post">
+            <div>
+<?php
+                $nAux = ($n != 0) ? $n : "";                           //Sólo mostramos el número generado cuando sea diferente de cero
+                echo "\t\t\t\t<p><span>".$nAux."</span><span>".$titulo."</span></p>\n";
+                echo dibujaTabla($n, $_SESSION['tombola']);
+                $activo = (count($_SESSION['tombola']) == 90) ? "disabled" : "";
+?>
+            <input type="submit" name="obtener" value="Obtener Número" <?= $activo ?>>
+            <input type="submit" name="nuevo"   value="Nuevo Juego">
+        </div>
+        <div>
+<?= dibujaCarton(); ?>
+            <input type="submit" name="comprobar" value="Comprobar Cartón">
+        </div>
+    </form>
+<?= reproducirAudio($titulo); ?>
+    </body>
+</html>
