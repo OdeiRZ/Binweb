@@ -1,9 +1,7 @@
-body
-{
+body {
 	background-image:url('../imagenes/textura.jpg');
 }
-div
-{
+div {
 	margin:10px auto;
 	width:330px;
 	border:3px solid #2D6367;
@@ -11,16 +9,14 @@ div
 	padding:12px;
 	background-color:#F7C617;
 }
-div > p
-{
+div > p {
 	margin:10px 0px 25px 0px;
 	padding:10px;
 	background-color:white;
 	border-radius:10px;
 	height:20px;
 }
-div > p > span:first-child
-{
+div > p > span:first-child {
 	margin-top:-17px;
 	padding:15px 10px 5px 10px;
 	background-image:url('../imagenes/bolaRoja.png');
@@ -34,8 +30,7 @@ div > p > span:first-child
 	font-size:20px;
 	font-weight:bold;
 }
-div > p > span + span
-{
+div > p > span + span {
 	display:block;
 	margin:-45px 0px 0px 30px;
 	padding:5px;
@@ -44,8 +39,7 @@ div > p > span + span
 	font-weight:bold;
 	text-align:center;
 }
-table td
-{
+table td {
 	border-radius:20px;
 	background-color:white;
 	width:35px;
@@ -53,32 +47,26 @@ table td
 	text-align:center;
 	font-weight:bold;
 }
-table td + td
-{
+table td + td {
 	margin:10px;
 }
-table td.oculto
-{
+table td.oculto {
 	visibility:hidden;
 }
-table td.boleto
-{
+table td.boleto {
 	background-image:url('../imagenes/bolaAmarilla.png');
 	background-size:100% 100%;
 }
-table td.actual
-{
+table td.actual {
 	background-image:url('../imagenes/bolaRoja2.png');
 	background-size:100% 100%;
 	color:white;
 }
-form
-{
+form {
 	padding:5px;
 	text-align:center;
 }
-form input[type=number]
-{
+form input[type=number] {
 	border-radius:20px;
 	width:30px;
 	height:30px;
@@ -88,8 +76,7 @@ form input[type=number]
 	font-weight:bold;
 	font-size:14px;
 }
-form input[type=submit]
-{
+form input[type=submit] {
 	margin-top:10px;
 	height:30px;
 	width:130px;
@@ -102,19 +89,16 @@ form input[type=submit]
 	cursor:pointer;
 	font-weight:bold;
 }
-form input[type=submit]:hover
-{
+form input[type=submit]:hover {
 	background-image:url('../imagenes/boton3.png');
 	color:#844204;
 }
-form input[type=submit]:active
-{
+form input[type=submit]:active {
 	background-image:url('../imagenes/boton2.png');
 	color:brown;
 	cursor:progress;
 }
-form input[type=submit]:disabled
-{
+form input[type=submit]:disabled {
 	background-image:url('../imagenes/boton4.png');
 	color:#977254;
 }

@@ -23,7 +23,7 @@
         $f1 = array();
         $f2 = array();                                                 //Creamos arrays que contendran los números enviados por fila
         $f3 = array();
-        for($i = 1; $i < 28; $i++) {
+        for ($i = 1; $i < 28; $i++) {
             if ($_POST["casilla".$i] != "") {
                 if (in_array($i, array(1, 4, 7, 10, 13, 16, 19, 22, 25))) {  //Calculamos en que fila insertaremos el número a partir del índice
                     array_push($f1, $_POST["casilla".$i]);                   //Insertamos el número mandado en una fila concreta
@@ -34,10 +34,10 @@
                 }
             }
         }
-        if(count($f1) + count($f2) + count($f3) != 15) {               //Si la suma de las 3 filas es diferente a 15
-            $titulo = "<font color='red'>Cartón mal rellenado</font>"; //mostramos el mensaje de 'error' correspondiente
-        } else {                                                       //en caso contrario validamos el cartón
-            $titulo = comprobarCarton($f1, $f2, $f3, $_SESSION['tombola']);
+        if (count($f1) == 5 && count($f2) == 5 && count($f3) == 5) {        //Si hay 5 apuestas en cada fila
+            $titulo = comprobarCarton($f1, $f2, $f3, $_SESSION['tombola']); //validamos el cartón creado
+        } else {                                                            //en caso contrario mostramos mensaje de 'error'
+            $titulo = "<font color='red'>Cartón mal rellenado</font>";
         }
     }
 ?>
