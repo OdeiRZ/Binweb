@@ -5,9 +5,9 @@ Aplicación web que simula el funcionamiento de un bingo, generando múmeros y c
 (aún en modo beta, no está lista para producción). Desplegada en fase de pruebas unicamente en 
 un equipo local.
 
-Desde ella se podrán generar números aleatorios, comprobar sus correspondencias, crear nuevas partidas, etc.,
-añadiendo además efectos interactivos como reproducción de sonidos, estilos varios, etc., 
-para una interacción con el usuario más satisfactoria.
+Desde ella se podrán generar números aleatorios, comprobar sus asociaciones, crear nuevas partidas, etc.,
+añadiendo efectos interactivos como reproducción de sonidos, estilos varios, etc., 
+para conseguir una interacción del usuario más satisfactoria.
 
 Para facilitar el desarrollo se proporciona un entorno [Vagrant] con todas las dependencias ya instaladas.
 
