@@ -6,31 +6,39 @@
     $titulo = "Bingo Online";
     $n = 0;
 
-    if (isset($_POST['nuevo'])) {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));            //Generamos un token CSRF por sesión
+    }
+    $csrfValido = isset($_POST['csrf_token']) &&
+        hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']);     //Comprobamos que el token recibido coincide con el de la sesión
+
+    if ($csrfValido && isset($_POST['nuevo'])) {
         session_destroy();
         session_start();
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     if (!isset($_SESSION['tombola'])) {
         $_SESSION['tombola'] = array();	                               //Inicializamos variable de sesión tombola
     }                                                                  //rellenando un array de 90 elementos con ceros
-    if (isset($_POST['obtener'])) {
+    if ($csrfValido && isset($_POST['obtener'])) {
         do {
             $n = mt_rand(1, 90);
         } while (in_array($n, $_SESSION['tombola']));                  //Mientras que el número exista en el array repetimos el bucle
         array_push($_SESSION['tombola'], $n);
     }
-    if (isset($_POST['comprobar'])) {
+    if ($csrfValido && isset($_POST['comprobar'])) {
         $f1 = array();
         $f2 = array();                                                 //Creamos arrays que contendran los números enviados por fila
         $f3 = array();
         for($i = 1; $i < 28; $i++) {
-            if ($_POST["casilla".$i] != "") {
+            $valor = $_POST["casilla".$i];
+            if ($valor != "" && ctype_digit($valor) && (int)$valor >= 1 && (int)$valor <= 90) { //Validamos que el número enviado sea numérico y esté entre 1 y 90
                 if (in_array($i, array(1, 4, 7, 10, 13, 16, 19, 22, 25))) {  //Calculamos en que fila insertaremos el número a partir del índice
-                    array_push($f1, $_POST["casilla".$i]);                   //Insertamos el número mandado en una fila concreta
+                    array_push($f1, $valor);                                 //Insertamos el número mandado en una fila concreta
                 }  else if (in_array($i, array(2, 5, 8, 11, 14, 17, 20, 23, 26))) {
-                    array_push($f2, $_POST["casilla".$i]);
+                    array_push($f2, $valor);
                 } else {
-                    array_push($f3, $_POST["casilla".$i]);
+                    array_push($f3, $valor);
                 }
             }
         }
@@ -51,6 +59,7 @@
     </head>
     <body>
         <form action="index.php" method="post">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
             <div>
 <?php
                 $nAux = ($n != 0) ? $n : "";                           //Sólo mostramos el número generado cuando sea diferente de cero
