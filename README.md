@@ -31,6 +31,10 @@ Aplicación web en PHP que simula una partida de bingo: sortea números y compru
 
 Nota del propio autor: proyecto en fase beta, probado solo en entorno local, no pensado para producción.
 
+## Seguridad
+
+Los valores del cartón enviados por el cliente ahora se validan también en el servidor (antes solo se comprobaban los atributos `min`/`max` del HTML5, permitiendo forzar un bingo o línea falsos con una petición manipulada). Añadida protección CSRF mediante un token por sesión, comprobado en cada acción enviada por POST (sortear número, nueva partida, comprobar cartón).
+
 ## Licencia
 
 GPL versión 3 (ver archivo [LICENSE](LICENSE)).
